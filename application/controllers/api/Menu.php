@@ -20,11 +20,12 @@ class Menu extends REST_Controller
 		$roleId = $this->get('roleId');
 		$menuId = $this->get('menuId');
 		$namaMenu = $this->get('namaMenu');
+		$id = $this->get('id');
 
-		if($roleId === null and $menuId === null and $namaMenu === null){
-			$menu = $this->menu->getMenu($roleId, $menuId, $namaMenu);
+		if($roleId === null and $menuId === null and $namaMenu === null and $id === null){
+			$menu = $this->menu->getMenu($roleId, $menuId, $namaMenu, $id);
 		} else {
-			$menu = $this->menu->getMenu($roleId, $menuId, $namaMenu);
+			$menu = $this->menu->getMenu($roleId, $menuId, $namaMenu, $id);
 		} 
 		
 		if($menu){
@@ -37,6 +38,46 @@ class Menu extends REST_Controller
 	            'status' => '404',
 	            'data' => $menu
 	        ], REST_Controller::HTTP_NOT_FOUND);
+		}
+	}
+
+	public function index_post()
+	{
+		$data = [
+			'id_menu' => $this->post('idMenu')
+		];
+
+		if($this->menu->addUserMenu($data) > 0){
+			$this->response([
+				'status' => true,
+				'message' => 'new user menu has been created'
+			], REST_Controller::HTTP_CREATED);
+		} else {
+			$this->response([
+				'status' => false,
+				'message' => 'failed to created data'
+			], REST_Controller::HTTP_BAD_REQUEST);
+		}
+	}
+
+	public function index_put()
+	{
+		$id = $this->put('id');
+
+		$data = [
+			'id_menu' => $this->put('idMenu')
+		];
+
+		if($this->menu->editUserMenu($data, $id) > 0){
+			$this->response([
+				'status' => true,
+				'message' => 'user menu has been updated.'
+			], REST_Controller::HTTP_OK);
+		} else {
+			$this->response([
+				'status' => false,
+				'message' => 'failed to updated data'
+			], REST_Controller::HTTP_BAD_REQUEST);
 		}
 	}
 
