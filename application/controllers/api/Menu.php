@@ -95,13 +95,14 @@ class Menu extends REST_Controller
 				$this->response([
 		            'status' => true,
 		            'id' => $id,
-		            'message' => 'Delete'
+		            'message' => 'delete succes'
 	        	], REST_Controller::HTTP_OK);
 			} else {
 				$this->response([
 		            'status' => false,
+		            'id' => $id,
 		            'message' => 'id not found'
-	        	], REST_Controller::HTTP_BAD_REQUEST);
+	        	], REST_Controller::HTTP_NOT_FOUND);
 			}
 		}
 	}
