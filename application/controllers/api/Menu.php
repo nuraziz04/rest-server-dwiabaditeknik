@@ -22,12 +22,8 @@ class Menu extends REST_Controller
 		$namaMenu = $this->get('namaMenu');
 		$id = $this->get('id');
 
-		if($roleId === null and $menuId === null and $namaMenu === null and $id === null){
-			$menu = $this->menu->getMenu($roleId, $menuId, $namaMenu, $id);
-		} else {
-			$menu = $this->menu->getMenu($roleId, $menuId, $namaMenu, $id);
-		} 
-		
+		$menu = $this->menu->getMenu($roleId, $menuId, $namaMenu, $id);
+
 		if($menu){
 			$this->response([
 	            'status' => '00',

@@ -2,9 +2,14 @@
 
 class Submenu_model extends CI_Model
 {
-	public function getSubmenu()
+	public function getSubmenu($id)
 	{
-		return $this->db->get('user_sub_menu')->result_array();
+		if($id === null){
+			return $this->db->get('user_sub_menu')->result_array();
+		} else {
+			return $this->db->get_where('user_sub_menu', ['id' => $id])->row_array();
+		}
+		
 	}
 
 	public function addSubMenu($data)

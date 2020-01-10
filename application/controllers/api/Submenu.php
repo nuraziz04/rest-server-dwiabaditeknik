@@ -17,7 +17,9 @@ class Submenu extends REST_Controller
 
 	public function index_get()
 	{
-		$submenu = $this->submenu->getSubmenu();
+		$id = $this->get('id');
+
+		$submenu = $this->submenu->getSubmenu($id);
 
 		if($submenu){
 			$this->response([
